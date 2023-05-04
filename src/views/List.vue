@@ -3,7 +3,11 @@
     <h1>List</h1>
 
     <hr />
-
+    <my-select
+      :model-value="filter"
+      @change="$store.commit('chooseFilter')"
+    ></my-select>
+    <hr />
     <table v-if="tasks.length">
       <thead>
         <tr>
@@ -39,10 +43,13 @@
 </template>
 
 <script>
+import MySelect from "@/components/MySelect.vue";
+import { mapGetters } from "vuex";
 export default {
   name: "List",
-  components: {},
+  components: { MySelect },
   computed: {
+    ...mapGetters("select", ["sortedTasks"]),
     tasks() {
       return this.$store.getters.tasks;
     },
